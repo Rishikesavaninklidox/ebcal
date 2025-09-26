@@ -234,3 +234,63 @@
 //     );
 //   }
 // }
+
+/// this is kotlin code  for call tracking
+// package com.example.calltracker
+//
+// import android.content.Context
+// import android.os.Bundle
+// import io.flutter.embedding.android.FlutterActivity
+// import io.flutter.plugin.common.EventChannel
+// import android.telephony.PhoneStateListener
+// import android.telephony.TelephonyManager
+//
+// class MainActivity: FlutterActivity() {
+//   private val CHANNEL = "com.example.calltracker/call_events"
+//   private var events: EventChannel.EventSink? = null
+//
+//   override fun configureFlutterEngine(flutterEngine: io.flutter.embedding.engine.FlutterEngine) {
+//   super.configureFlutterEngine(flutterEngine)
+//
+//   EventChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL)
+//       .setStreamHandler(object : EventChannel.StreamHandler {
+//   override fun onListen(arguments: Any?, sink: EventChannel.EventSink?) {
+//   events = sink
+//   startListening()
+//   }
+//
+//   override fun onCancel(arguments: Any?) {
+//   events = null
+//   }
+//   })
+//   }
+//
+//   private fun startListening() {
+//   val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//
+//   telephonyManager.listen(object : PhoneStateListener() {
+//   override fun onCallStateChanged(state: Int, phoneNumber: String?) {
+//   when (state) {
+//   TelephonyManager.CALL_STATE_RINGING -> {
+//   events?.success("Incoming call from: $phoneNumber")
+//   }
+//   TelephonyManager.CALL_STATE_OFFHOOK -> {
+//   events?.success("Call Answered/Outgoing")
+//   }
+//   TelephonyManager.CALL_STATE_IDLE -> {
+//   events?.success("Call Ended")
+//   }
+//   }
+//   }
+//   }, PhoneStateListener.LISTEN_CALL_STATE)
+//   }
+// }
+/// permisions
+// <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+// <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+// <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+// <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+//
+// <application ...>
+// <service android:name=".CallService" android:enabled="true" android:exported="true"/>
+// </application>
