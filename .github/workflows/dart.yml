@@ -11,22 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      # ✅ Install Flutter instead of just Dart
+      # Install Flutter with Dart >= 3.8.1
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.0' # or 'stable'
+          flutter-version: '3.27.1' # ✅ ships Dart 3.8.x
 
-      # ✅ Get Flutter dependencies
+      # Disable analytics for CI
+      - name: Disable Flutter analytics
+        run: flutter config --no-analytics
+
+      # Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # ✅ Analyze code
+      # Analyze code
       - name: Analyze project source
         run: flutter analyze
 
-      # ✅ Run tests
+      # Run tests
       - name: Run tests
         run: flutter test
